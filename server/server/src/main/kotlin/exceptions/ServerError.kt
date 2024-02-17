@@ -4,30 +4,40 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class ServerError(
-    val status: Int = 400,
-    val errorCode: Int? = null,
-    val error: String? = null,
-    val developerMessage: String? = null
 ) : RuntimeException() {
+
+    abstract val status: Int
+    abstract val errorCode: Int?
+    abstract val error: String?
+    abstract val developerMessage: String?
 
     // questions/questionnaire{questionnaireNumber} errors
     /**
      * Returned when a GET call to [questions] does not include an identifier Int.
      */
     @Serializable
-    class NoQuestionnaireProvided : ServerError(
-        error = "No questionnaire identifier provided",
-        errorCode = 101,
-        developerMessage = "Consider including an Integer in the parameters"
-    )
+    class NoQuestionnaireProvided(
+        override val developerMessage: String? = "Consider including an Integer in the parameters",
+        override val errorCode: Int? = 101,
+        override val error: String? = "No questionnaire identifier provided",
+        override val status: Int = 400
+    ) : ServerError()
 
     /**
      * Returned when a GET call to [questions] is requested for a questionnaire that does not exist.
      */
     @Serializable
-    class QuestionnaireNotAvailable : ServerError(
-        error = "Provided questionnaire identifier does not exist",
-        errorCode = 102,
-        developerMessage = "Consider using a different Integer"
-    )
+    class QuestionnaireNotAvailable(
+        override val developerMessage: String? = "Consider using a different Integer",
+        override val errorCode: Int? = 102,
+        override var error: String? = "Provided questionnaire identifier does not exist",
+        override var status: Int = 200
+    ) : ServerError()
+
+    @Serializable
+    class Generic(override var developerMessage: String? = null,
+                  override var errorCode: Int? = null,
+                  override val error: String? = null,
+                  override val status: Int = 400)
+    : ServerError()
 }

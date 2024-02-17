@@ -21,6 +21,10 @@ fun Application.configureRouting() {
                 call.respond(questionnaireToReturn)
             } catch (e: ServerError) {
                 call.respond(e)
+            } catch (e: Exception) {
+                call.respond(ServerError.Generic(
+                    developerMessage = e.cause.toString()
+                ))
             }
 
         }
