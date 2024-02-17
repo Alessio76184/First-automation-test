@@ -1,0 +1,204 @@
+{
+  "questions": [
+    {
+      "id": 0,
+      "title": "I take pride in being seen as reliable and ready for any circumstance.",
+      "type": "Unbreakable"
+    },
+    {
+      "id": 1,
+      "title": "I base my self-worth on being accepted by others, forgetting that I must accept myself first.",
+      "type": "Rejected"
+    },
+    {
+      "id": 2,
+      "title": "I have difficulty with emotional intimacy and fear being vulnerable, leading me to thrive on independence.",
+      "type": "Rejected"
+    },
+    {
+      "id": 3,
+      "title": "I struggle to set healthy boundaries for myself while being accommodating to others.",
+      "type": "Conformer"
+    },
+    {
+      "id": 4,
+      "title": "I experience feelings of guilt when I believe that I have made a mistake.",
+      "type": "Inspector"
+    },
+    {
+      "id": 5,
+      "title": "I hold onto partners, friends, and family members who negatively impact my well-being and leave me feeling exhausted.",
+      "type": "Rejected"
+    },
+    {
+      "id": 6,
+      "title": "I see rest as a waste of time, as it will not contribute to my progress or advancement.",
+      "type": "Doer"
+    },
+    {
+      "id": 7,
+      "title": "I compare and measure my current situation against an ideal one.",
+      "type": "Inspector"
+    },
+    {
+      "id": 8,
+      "title": "I frequently make justifications for why things should remain unchanged.",
+      "type": "Unbreakable"
+    },
+    {
+      "id": 9,
+      "title": "I think that by excessively caring for others, I am boosting my own sense of self-worth.",
+      "type": "Savior"
+    },
+    {
+      "id": 10,
+      "title": "I engage in behaviors that are not in my best interest to maintain high levels of enthusiasm.",
+      "type": "Dreamer"
+    },
+    {
+      "id": 11,
+      "title": "I engage in self-gratifying behaviors like binge-watching TV, overeating, staying out late on workdays, spending money I should save, etc.",
+      "type": "Dreamer"
+    },
+    {
+      "id": 12,
+      "title": "I find validation in making others happy, even though I am aware that it's driven by feelings of obligation and guilt.",
+      "type": "Conformer"
+    },
+    {
+      "id": 13,
+      "title": "I believe that the hardest workers are always appreciated.",
+      "type": "Doer"
+    },
+    {
+      "id": 14,
+      "title": "By taking on the problems of others, I feel valued and unique.",
+      "type": "Savior"
+    },
+    {
+      "id": 15,
+      "title": "I focus on negative self-talk and silence positive assumptions.",
+      "type": "Pessimist"
+    },
+    {
+      "id": 16,
+      "title": "I am strongly committed to achieving perfection in all my endeavors.",
+      "type": "Inspector"
+    },
+    {
+      "id": 17,
+      "title": "I seek validation by portraying myself as a noble sufferer.",
+      "type": "Conformer"
+    },
+    {
+      "id": 18,
+      "title": "I believe that the circumstances in my life are outside of my control, and that I am a victim of them.",
+      "type": "Conformer"
+    },
+    {
+      "id": 19,
+      "title": "I cultivate the need for others to be dependent upon me and I make sure they are aware of it.",
+      "type": "Savior"
+    },
+    {
+      "id": 20,
+      "title": "I believe that it's not appropriate to display negative emotions.",
+      "type": "Dreamer"
+    },
+    {
+      "id": 21,
+      "title": "I am critical of myself when I don't complete tasks.",
+      "type": "Doer"
+    },
+    {
+      "id": 22,
+      "title": "I believe that if I don't help others, it means I don't care about or love them",
+      "type": "Savior"
+    },
+    {
+      "id": 23,
+      "title": "I am responsible for the negative emotions people close to me experience",
+      "type": "Savior"
+    },
+    {
+      "id": 24,
+      "title": "I have a tendency to focus on worst-case scenarios.",
+      "type": "Pessimist"
+    },
+    {
+      "id": 25,
+      "title": "I cannot be happy in the present moment, because I believe that happiness comes with achievement, and my achievements are never enough",
+      "type": "Doer"
+    },
+    {
+      "id": 26,
+      "title": "I am prepared for crises as I anticipate them in advance.",
+      "type": "Pessimist"
+    },
+    {
+      "id": 27,
+      "title": "I overemphasize practical issues and often neglect my dreams.",
+      "type": "Unbreakable"
+    },
+    {
+      "id": 28,
+      "title": "I provide comfort to myself and others by articulating idealized perspectives.",
+      "type": "Dreamer"
+    },
+    {
+      "id": 29,
+      "title": "It is common for me to feel envy and jealousy about the success of others.",
+      "type": "Inspector"
+    },
+    {
+      "id": 30,
+      "title": "I think that my personal worth and value are directly linked to the amount of work and accomplishments I achieve.",
+      "type": "Doer"
+    },
+    {
+      "id": 31,
+      "title": "I am inclined to scrutinize the intentions of others.",
+      "type": "Rejected"
+    },
+    {
+      "id": 32,
+      "title": "I am confident that I can manage anything, as long as I work hard, supervise, and maintain control.",
+      "type": "Unbreakable"
+    },
+    {
+      "id": 33,
+      "title": "I focus on potential risks and the negative aspects of a circumstance, forgetting to consider the possible benefits",
+      "type": "Pessimist"
+    },
+    {
+      "id": 34,
+      "title": "Material possessions are not a priority for me.",
+      "type": "Conformer"
+    },
+    {
+      "id": 35,
+      "title": "I often compare myself to others and feel inadequate in my own abilities.",
+      "type": "Inspector"
+    },
+    {
+      "id": 36,
+      "title": "I have faith that if I keep pushing, things will eventually improve.",
+      "type": "Unbreakable"
+    },
+    {
+      "id": 37,
+      "title": "I tend to think that if I experience sadness, I must have some kind of flaw or issue.",
+      "type": "Dreamer"
+    },
+    {
+      "id": 38,
+      "title": "I believe that everything nice has an expiration date.",
+      "type": "Pessimist"
+    },
+    {
+      "id": 39,
+      "title": "I maintain emotional barriers that keep others at a distance, which I believe will protect me from getting hurt.",
+      "type": "Rejected"
+    }
+  ]
+}

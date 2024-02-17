@@ -41,7 +41,7 @@
 #### Body
 ```
 {
-    "authenticated": Boolean
+    "status": Int
     "errorCode": Int?,
     "error": String?,
 }
