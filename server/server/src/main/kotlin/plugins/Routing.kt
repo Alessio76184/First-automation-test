@@ -23,6 +23,7 @@ fun Application.configureRouting() {
                 call.respond(e)
             } catch (e: Exception) {
                 call.respond(ServerError.Generic(
+                    error = e.message,
                     developerMessage = e.cause.toString()
                 ))
             }
