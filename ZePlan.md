@@ -18,7 +18,7 @@
 }
 ```
 
-### POST baseUrl/question/answer
+### POST baseUrl/questionnaire/submit/answer
 ### Request
 #### Body
 ```
@@ -41,7 +41,8 @@
 #### Body
 ```
 {
-    "status": Int
+    "status": Int,
+    "developerMessage": String?,
     "errorCode": Int?,
     "error": String?,
 }

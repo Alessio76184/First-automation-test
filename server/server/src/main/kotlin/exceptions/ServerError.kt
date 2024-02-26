@@ -3,8 +3,7 @@ package com.alessio.exceptions
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class ServerError(
-) : RuntimeException() {
+sealed class ServerError: RuntimeException() {
 
     abstract val status: Int
     abstract val errorCode: Int?
@@ -31,7 +30,7 @@ sealed class ServerError(
         override val developerMessage: String? = "Consider using a different Integer",
         override val errorCode: Int? = 102,
         override var error: String? = "Provided questionnaire identifier does not exist",
-        override var status: Int = 200
+        override var status: Int = 400
     ) : ServerError()
 
     @Serializable

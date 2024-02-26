@@ -11,8 +11,8 @@ val questionnaireLoader = QuestionnaireLoader()
 
 fun Application.configureRouting() {
     routing {
-        get("/") {
-            call.respondText("Hello World!")
+        get("/about") {
+            call.respondText("App version: ${System.getProperty("version")}")
         }
         get("/questions/questionnaire{questionnaireNumber}") {
             try {
@@ -28,6 +28,21 @@ fun Application.configureRouting() {
                 ))
             }
 
+        }
+        post("questionnaire/submit/answer") {
+            //the body
+            //{
+            //    "questionnaireId": Int,
+            //    "userId": String,
+            //    "answeredQuestions": [
+            //        {
+            //            "id": Int,
+            //            "type": String,
+            //            "answer": Int
+            //        }
+            //        ...
+            //    ]
+            //}
         }
         // Static plugin. Try to access `/static/index.html`
         static("/static") {

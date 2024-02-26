@@ -5,12 +5,8 @@ import com.alessio.models.Questionnaire
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileNotFoundException
-import kotlin.io.path.Path
-import kotlin.io.path.listDirectoryEntries
 
 class QuestionnaireLoader {
-
-    private val availableQuestionnaires = Path("assets")
 
     fun getQuestionnaire(questionnaireIdentifier: Int): Questionnaire {
         try {
