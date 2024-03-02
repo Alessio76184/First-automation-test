@@ -2,10 +2,17 @@ package com.alessio.plugins
 
 import com.alessio.data.QuestionnaireLoader
 import com.alessio.exceptions.ServerError
+import com.alessio.models.AnsweredQuestionnaire
+import com.alessio.utils.DataValidators.Companion.validateQuestionnaireAnswers
+import com.alessio.utils.DataValidators.Companion.validateQuestionnaireId
+import com.alessio.utils.ResultsCalculator
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*
+import io.ktor.server.plugins.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.util.pipeline.*
 
 val questionnaireLoader = QuestionnaireLoader()
 
@@ -22,31 +29,30 @@ fun Application.configureRouting() {
             } catch (e: ServerError) {
                 call.respond(e)
             } catch (e: Exception) {
-                call.respond(ServerError.Generic(
-                    error = e.message,
-                    developerMessage = e.cause.toString()
-                ))
+                call.respond(
+                    ServerError.Generic(
+                        error = e.message,
+                        developerMessage = e.cause.toString()
+                    )
+                )
             }
-
         }
-        post("questionnaire/submit/answer") {
-            //the body
-            //{
-            //    "questionnaireId": Int,
-            //    "userId": String,
-            //    "answeredQuestions": [
-            //        {
-            //            "id": Int,
-            //            "type": String,
-            //            "answer": Int
-            //        }
-            //        ...
-            //    ]
-            //}
-        }
-        // Static plugin. Try to access `/static/index.html`
-        static("/static") {
-            resources("static")
+        post("/questionnaire/submit/answer") {
+            try {
+                val data = call.receive<AnsweredQuestionnaire>()
+                validateQuestionnaireId(data)
+                validateQuestionnaireAnswers(data)
+                val computedResults = ResultsCalculator().computeResultsForAnswers(data.answeredQuestions)
+                call.respond(computedResults)
+            } catch (exception: BadRequestException) {
+                call.respond(
+                    ServerError.BadRequest(
+                        error = exception.cause?.message
+                    )
+                )
+            } catch (handledServerError: ServerError) {
+                call.respond(handledServerError)
+            }
         }
     }
 }

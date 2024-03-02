@@ -3,7 +3,7 @@ package com.alessio.exceptions
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class ServerError: RuntimeException() {
+sealed class ServerError : RuntimeException() {
 
     abstract val status: Int
     abstract val errorCode: Int?
@@ -34,9 +34,34 @@ sealed class ServerError: RuntimeException() {
     ) : ServerError()
 
     @Serializable
-    class Generic(override var developerMessage: String? = null,
-                  override var errorCode: Int? = null,
-                  override val error: String? = null,
-                  override val status: Int = 400)
-    : ServerError()
+    class Generic(
+        override var developerMessage: String? = null,
+        override var errorCode: Int? = null,
+        override val error: String? = null,
+        override val status: Int = 400
+    ) : ServerError()
+
+    @Serializable
+    class BadRequest(
+        override var developerMessage: String? = "Your request was shit, go fly a kite",
+        override var errorCode: Int? = 104,
+        override var error: String? = null,
+        override var status: Int = 400
+    ) : ServerError()
+
+    @Serializable
+    class QuestionnaireNonExistent(
+        override var developerMessage: String? = "You tried to send answers to a non-existent questionnaire",
+        override var errorCode: Int? = 105,
+        override var error: String? = null,
+        override var status: Int = 400
+    ) : ServerError()
+
+    @Serializable
+    class QuestionnaireAnswersIncomplete(
+        override var developerMessage: String? = "Incomplete questionnaire answers",
+        override var errorCode: Int? = 106,
+        override var error: String? = null,
+        override var status: Int = 400
+    ) : ServerError()
 }
