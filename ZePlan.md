@@ -18,7 +18,7 @@
 }
 ```
 
-### POST baseUrl/questionnaire/submit/answer
+### POST baseUrl//questionnaire/submitanswer
 ### Request
 #### Body
 ```
@@ -36,14 +36,36 @@
 }
 ```
 
-### Answer
+### POST answer
 #### Status code: 200
 #### Body
 ```
 {
-    "status": Int,
-    "developerMessage": String?,
-    "errorCode": Int?,
-    "error": String?,
+    "results": [
+        {
+            String: Double // PersonalityType : Double
+        },
+        {
+            String: Double
+        },
+        {
+            String: Double
+        }
+    ]
+}
+```
+
+
+## Errors
+#### GET error case
+#### Status code: 200
+#### Body
+```
+{   
+    "type": String,
+    "developerMessage": String,
+    "errorCode": Int,
+    "error": String,
+    "status": Int
 }
 ```
