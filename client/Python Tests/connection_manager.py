@@ -10,10 +10,10 @@ def make_get_call(URL):
 def make_post_call(URL, body):
     pass
 
-# 
+# Counting the number of questions within the questionnair
 def QuestionnaireIdCount(questions):
-    ## len counts any time ques
     id_count = 0
+    ## checking for all questions with 'id' to confirm the number of questions
     for question in questions.get('questions', []):
         if question.get('id') is not None:
             id_count += 1
