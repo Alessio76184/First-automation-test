@@ -406,6 +406,22 @@ class TestResultQuestionnaire(unittest.TestCase):
                     break
         self.assertTrue(found, f"Expected result {expected_key}: {expected_value} not found")  
 
+
+#Test 4
+## Random url call
+TestQuestionnaire4 = make_get_call("questions/questionnairebkasdkasmd")
+
+class QuestionnaireRandomTests(unittest.TestCase):
+    maxDiff = None
+
+    def test_get_ramdom_url_status_code(self):
+        self.assertEqual(TestQuestionnaire4.status_code, 200)
+    
+    def test_get_ramdom_url_status(self):
+        retrieve_status = TestQuestionnaire4.json()
+        status_check = retrieve_status.get("status")
+        self.assertEqual(status_check, 200)
+
 if __name__ == '__main__':
     unittest.main(testRunner=unittest.TextTestRunner(verbosity=2, resultclass=ColorfulResult))
 
