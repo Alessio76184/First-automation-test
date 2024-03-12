@@ -18,7 +18,7 @@ class ColorfulResult(unittest.TextTestResult):
         print(Fore.RED + f"ERROR: {test.id()}")
 
 #Test 1
-## Checking for the number of questions in the questionnair, checking the status & status code, checking the question structures match
+## Checking for the number of questions in the questionnair, checking the status & status code, checking the question structures match Test
 
 TestQuestionnaire = make_get_call("questions/questionnaire1")
 
