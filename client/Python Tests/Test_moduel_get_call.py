@@ -18,27 +18,27 @@ class ColorfulResult(unittest.TextTestResult):
         print(Fore.RED + f"ERROR: {test.id()}")
 
 #Test 1
-## Checking for the number of questions in the questionnair, checking the status & status code, checking the question structures match
+## Checking for the number of questions in the questionnair, checking the status & status code, checking the question structures match Test
 
-TestQuestionnaire = make_get_call("questions/questionnaire1")
+Test_URL_Questionnaire1 = make_get_call("questions/questionnaire1")
 
-class Questionnaire1Tests(unittest.TestCase):
+class Tests_Questionnaire1_Body_and_Status_Codes(unittest.TestCase):
     maxDiff = None
 
-    def test_get_answer_number_of_questions(self):
-        id_count = QuestionnaireIdCount(TestQuestionnaire)
+    def test_get_questionnaire_when_questionnaire1_then_id_count_40(self):
+        id_count = QuestionnaireIdCount(Test_URL_Questionnaire1)
         self.assertEqual(id_count, 40)
 
-    def test_get_answer_status_code(self):
-        self.assertEqual(TestQuestionnaire.status_code, 200)
+    def test_get_questionnaire_when_questionnaire1_then_status_code_200(self):
+        self.assertEqual(Test_URL_Questionnaire1.status_code, 200)
     
-    def test_get_answer_status(self):
-        retrieve_status = TestQuestionnaire.json()
+    def test_get_questionnaire_when_questionnaire1_then_status_200(self):
+        retrieve_status = Test_URL_Questionnaire1.json()
         status_check = retrieve_status.get("status")
         self.assertEqual(status_check, 200)
 
-    def test_questionare_body_structure(self):
-        json_data = TestQuestionnaire.json()
+    def test_get_questionnaire_when_questionnaire1_then_key_and_values_match(self):
+        json_data = Test_URL_Questionnaire1.json()
         for question in json_data["questions"]:
             self.assertIn("id", question)
             self.assertIsInstance(question["id"], int)
@@ -74,25 +74,25 @@ test_entry_expected = {
     ]
 }
 
-TestQuestionnaire2 = make_post_call("questionnaire/submit/answer", test_entry_question_50)
-TestQuestionnaire2_Type = make_post_call("questionnaire/submit/answer", test_entry_type_change)
-TestQuestionnaire2_Expected = make_post_call("questionnaire/submit/answer", test_entry_expected)
+Test_URL_Questionnaire_Submit_Wrong_Questionnair_ID = make_post_call("questionnaire/submit/answer", test_entry_question_50)
+Test_URL_Questionnaire_Submit_Wrong_Type = make_post_call("questionnaire/submit/answer", test_entry_type_change)
+Test_URL_Questionnaire_Submit_Correct_Body = make_post_call("questionnaire/submit/answer", test_entry_expected)
 
-class TestSubmitAnswer(unittest.TestCase):
+class Tests_Submit_Answer_Body_Status_and_Inputs(unittest.TestCase):
     maxDiff = None
     
-    def test_question_50(self):
-        retrieve_error = TestQuestionnaire2.json()
+    def test_post_questionnaire_when_submit_wrong_ID_then_errorCode_105(self):
+        retrieve_error = Test_URL_Questionnaire_Submit_Wrong_Questionnair_ID.json()
         error_check = retrieve_error.get("errorCode")
         error_message = retrieve_error.get("developerMessage")
         self.assertEqual(error_check, 105)
         self.assertIsNotNone(error_message)
 
-    def test_questionnaire_entry(self):
-        self.assertEqual(TestQuestionnaire2.status_code, 200)
+    def test_post_questionnaire_when_submit_wrong_ID_then_status_code_200(self):
+        self.assertEqual(Test_URL_Questionnaire_Submit_Wrong_Questionnair_ID.status_code, 200)
     
-    def test_question_answer_50_structure(self):
-        json_data_Q2 = TestQuestionnaire2.json()
+    def test_post_questionnaire_when_submit_wrong_ID_then_key_and_values_match(self):
+        json_data_Q2 = Test_URL_Questionnaire_Submit_Wrong_Questionnair_ID.json()
         self.assertIn("questionnaireId", json_data_Q2)
         self.assertIsInstance(["questionnairId"], int)
         self.assertIn("userId", json_data_Q2)
@@ -105,18 +105,18 @@ class TestSubmitAnswer(unittest.TestCase):
             self.assertIn("answer", answer)
             self.assertIsInstance(answer["answer"], int)    
 
-    def test_question_type(self):
-        retrieve_error = TestQuestionnaire2_Type.json()
+    def test_post_questionnaire_when_submit_wrong_type_then_errorCode_104(self):
+        retrieve_error = Test_URL_Questionnaire_Submit_Wrong_Type.json()
         error_check = retrieve_error.get("errorCode")
         error_message = retrieve_error.get("developerMessage")
         self.assertEqual(error_check, 104)
         self.assertIsNotNone(error_message)
 
-    def test_questionnaire_entry(self):
-        self.assertEqual(TestQuestionnaire2_Type.status_code, 200)
+    def test_post_questionnaire_when_submit_wrong_type_then_status_code_200(self):
+        self.assertEqual(Test_URL_Questionnaire_Submit_Wrong_Type.status_code, 200)
     
-    def test_question_answer_type_change_structure(self):
-        json_data_Q2 = TestQuestionnaire2_Type.json()
+    def test_post_questionnaire_when_submit_wrong_type_then_key_and_values_match(self):
+        json_data_Q2 = Test_URL_Questionnaire_Submit_Wrong_Type.json()
         self.assertIn("questionnaireId", json_data_Q2)
         self.assertIsInstance(["questionnairId"], int)
         self.assertIn("userId", json_data_Q2)
@@ -129,18 +129,18 @@ class TestSubmitAnswer(unittest.TestCase):
             self.assertIn("answer", answer)
             self.assertIsInstance(answer["answer"], int)
 
-    def test_question_expected(self):
-        retrieve_error = TestQuestionnaire2_Expected.json()
+    def test_post_questionnaire_when_submit_correct_body_then_errorCode_106(self):
+        retrieve_error = Test_URL_Questionnaire_Submit_Correct_Body.json()
         error_check = retrieve_error.get("errorCode")
         error_message = retrieve_error.get("developerMessage")
         self.assertEqual(error_check, 106)
         self.assertIsNotNone(error_message)
 
-    def test_questionnaire_entry_expected(self):
-        self.assertEqual(TestQuestionnaire2_Expected.status_code, 200)
+    def test_post_questionnaire_when_submit_correct_body_then_status_code_200(self):
+        self.assertEqual(Test_URL_Questionnaire_Submit_Correct_Body.status_code, 200)
     
-    def test_question_answer_expected_structure(self):
-        json_data_Q2 = TestQuestionnaire2_Expected.json()
+    def test_post_questionnaire_when_submit_correct_body_then_key_and_values_match(self):
+        json_data_Q2 = Test_URL_Questionnaire_Submit_Correct_Body.json()
         self.assertIn("questionnaireId", json_data_Q2)
         self.assertIsInstance(["questionnairId"], int)
         self.assertIn("userId", json_data_Q2)
@@ -363,23 +363,23 @@ test_full_questionnaire_time = {
     ]
 }
 
-TestQuestionnaire3 = make_post_call("questionnaire/submit/answer", test_full_questionnaire_time)
+Test_URL_Submit_Answer_With_All_Results = make_post_call("questionnaire/submit/answer", test_full_questionnaire_time)
 
-class TestResultQuestionnaire(unittest.TestCase):
+class Tests_Submit_All_Answers_Body_Status_and_Inputs(unittest.TestCase):
     maxDiff = None
     
-    def test_full_questionnaire_error(self):
-        retrieve_error = TestQuestionnaire3.json()
+    def test_post_questionnaire_when_submit_all_answers_then_errorCode_105(self):
+        retrieve_error = Test_URL_Submit_Answer_With_All_Results.json()
         error_check = retrieve_error.get("errorCode")
         error_message = retrieve_error.get("developerMessage")
         self.assertEqual(error_check, 105)
         self.assertIsNotNone(error_message)
 
-    def test_full_questionnaire_status_check(self):
-        self.assertEqual(TestQuestionnaire3.status_code, 200)
+    def test_post_questionnaire_when_submit_all_answers_then_status_code_200(self):
+        self.assertEqual(Test_URL_Submit_Answer_With_All_Results.status_code, 200)
     
-    def test_question_answer_results_structure(self):
-        json_data_Q3 = TestQuestionnaire3.json()
+    def test_post_questionnaire_when_submit_all_answers_then_key_and_values_match(self):
+        json_data_Q3 = Test_URL_Submit_Answer_With_All_Results.json()
         self.assertIn("results", json_data_Q3)
         self.assertEqual(len(json_data_Q3["results"]), 3)
         for results in json_data_Q3["results"]:
@@ -389,13 +389,13 @@ class TestResultQuestionnaire(unittest.TestCase):
             self.assertIsInstance(key, str)
             self.assertIsInstance(value, float)
 
-    def test_question_expected_results(self):
+    def test_post_questionnaire_when_submit_all_answers_then_match_expected_resutls(self):
         expected_results = {
             "Unbreakable": 0.41,
             "Doer": 0.29,
             "Rejected": 0.29
             }
-        json_data_Q3 = TestQuestionnaire3.json()
+        json_data_Q3 = Test_URL_Submit_Answer_With_All_Results.json()
         self.assertIn("results", json_data_Q3)
         self.assertEqual(len(json_data_Q3["results"]),len(expected_results))
         for expected_key, expected_value in expected_results.items():
@@ -409,16 +409,16 @@ class TestResultQuestionnaire(unittest.TestCase):
 
 #Test 4
 ## Random url call
-TestQuestionnaire4 = make_get_call("questions/questionnairebkasdkasmd")
+Test_URL_Questionnaire_Random_Text = make_get_call("questions/questionnairebkasdkasmd")
 
-class QuestionnaireRandomTests(unittest.TestCase):
+class Tests_Questionnair_Random_Text_Status(unittest.TestCase):
     maxDiff = None
 
-    def test_get_ramdom_url_status_code(self):
-        self.assertEqual(TestQuestionnaire4.status_code, 200)
+    def test_get_questionnaire_when_questionnaire_random_text_then_status_code_200(self):
+        self.assertEqual(Test_URL_Questionnaire_Random_Text.status_code, 200)
     
-    def test_get_ramdom_url_status(self):
-        retrieve_status = TestQuestionnaire4.json()
+    def test_get_questionnaire_when_questionnaire_random_text_then_status_200(self):
+        retrieve_status = Test_URL_Questionnaire_Random_Text.json()
         status_check = retrieve_status.get("status")
         self.assertEqual(status_check, 200)
 
