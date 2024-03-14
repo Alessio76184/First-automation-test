@@ -1,6 +1,7 @@
 import unittest
 from connection_manager import make_get_call, QuestionnaireIdCount, make_post_call
 from colorama import init, Fore
+from questionnaire_constants import QUEST_ID, USER_ID, ANSWERED_QUESTS, ID, TYPE, ANSWER, QUESTIONS, QUESTION_TYPE, QUESTION_ID, QUESTION_TITLE
 
 init(autoreset=True)
 
@@ -39,13 +40,13 @@ class Tests_Questionnaire1_Body_and_Status_Codes(unittest.TestCase):
 
     def test_get_questionnaire_when_questionnaire1_then_key_and_values_match(self):
         json_data = Test_URL_Questionnaire1.json()
-        for question in json_data["questions"]:
-            self.assertIn("id", question)
-            self.assertIsInstance(question["id"], int)
-            self.assertIn("title", question)
-            self.assertIsInstance(question["title"], str)
-            self.assertIn("type", question)
-            self.assertIsInstance(question["type"], str)
+        for question in json_data[QUESTIONS]:
+            self.assertIn(QUESTION_ID, question)
+            self.assertIsInstance(question[QUESTION_ID], int)
+            self.assertIn(QUESTION_TITLE, question)
+            self.assertIsInstance(question[QUESTION_TITLE], str)
+            self.assertIn(QUESTION_TYPE, question)
+            self.assertIsInstance(question[QUESTION_TYPE], str)
 
 # Test 2
 ## Checking if post function works for one question using structure provide, checking status & status code
@@ -93,17 +94,17 @@ class Tests_Submit_Answer_Body_Status_and_Inputs(unittest.TestCase):
     
     def test_post_questionnaire_when_submit_wrong_ID_then_key_and_values_match(self):
         json_data_Q2 = Test_URL_Questionnaire_Submit_Wrong_Questionnair_ID.json()
-        self.assertIn("questionnaireId", json_data_Q2)
-        self.assertIsInstance(["questionnairId"], int)
-        self.assertIn("userId", json_data_Q2)
-        self.assertIsInstance(["userId"], str)
-        for answer in json_data_Q2["answeredQuestions"]:
-            self.assertIn("id", answer)
-            self.assertIsInstance(answer["id"], int)
-            self.assertIn("type", answer)
-            self.assertIsInstance(answer["type"], str)
-            self.assertIn("answer", answer)
-            self.assertIsInstance(answer["answer"], int)    
+        self.assertIn(QUEST_ID, json_data_Q2)
+        self.assertIsInstance(json_data_Q2[QUEST_ID], int)
+        self.assertIn(USER_ID, json_data_Q2)
+        self.assertIsInstance(json_data_Q2[USER_ID], str)
+        for answer in json_data_Q2[ANSWERED_QUESTS]:
+            self.assertIn(ID, answer)
+            self.assertIsInstance(answer[ID], int)
+            self.assertIn(TYPE, answer)
+            self.assertIsInstance(answer[TYPE], str)
+            self.assertIn(ANSWER, answer)
+            self.assertIsInstance(answer[ANSWER], int)    
 
     def test_post_questionnaire_when_submit_wrong_type_then_errorCode_104(self):
         retrieve_error = Test_URL_Questionnaire_Submit_Wrong_Type.json()
@@ -117,17 +118,17 @@ class Tests_Submit_Answer_Body_Status_and_Inputs(unittest.TestCase):
     
     def test_post_questionnaire_when_submit_wrong_type_then_key_and_values_match(self):
         json_data_Q2 = Test_URL_Questionnaire_Submit_Wrong_Type.json()
-        self.assertIn("questionnaireId", json_data_Q2)
-        self.assertIsInstance(["questionnairId"], int)
-        self.assertIn("userId", json_data_Q2)
-        self.assertIsInstance(["userId"], str)
-        for answer in json_data_Q2["answeredQuestions"]:
-            self.assertIn("id", answer)
-            self.assertIsInstance(answer["id"], int)
-            self.assertIn("type", answer)
-            self.assertIsInstance(answer["type"], str)
-            self.assertIn("answer", answer)
-            self.assertIsInstance(answer["answer"], int)
+        self.assertIn(QUEST_ID, json_data_Q2)
+        self.assertIsInstance(json_data_Q2[QUEST_ID], int)
+        self.assertIn(USER_ID, json_data_Q2)
+        self.assertIsInstance(json_data_Q2[USER_ID], str)
+        for answer in json_data_Q2[ANSWERED_QUESTS]:
+            self.assertIn(ID, answer)
+            self.assertIsInstance(answer[ID], int)
+            self.assertIn(TYPE, answer)
+            self.assertIsInstance(answer[TYPE], str)
+            self.assertIn(ANSWER, answer)
+            self.assertIsInstance(answer[ANSWER], int)    
 
     def test_post_questionnaire_when_submit_correct_body_then_errorCode_106(self):
         retrieve_error = Test_URL_Questionnaire_Submit_Correct_Body.json()
@@ -141,17 +142,17 @@ class Tests_Submit_Answer_Body_Status_and_Inputs(unittest.TestCase):
     
     def test_post_questionnaire_when_submit_correct_body_then_key_and_values_match(self):
         json_data_Q2 = Test_URL_Questionnaire_Submit_Correct_Body.json()
-        self.assertIn("questionnaireId", json_data_Q2)
-        self.assertIsInstance(["questionnairId"], int)
-        self.assertIn("userId", json_data_Q2)
-        self.assertIsInstance(["userId"], str)
-        for answer in json_data_Q2["answeredQuestions"]:
-            self.assertIn("id", answer)
-            self.assertIsInstance(answer["id"], int)
-            self.assertIn("type", answer)
-            self.assertIsInstance(answer["type"], str)
-            self.assertIn("answer", answer)
-            self.assertIsInstance(answer["answer"], int)
+        self.assertIn(QUEST_ID, json_data_Q2)
+        self.assertIsInstance(json_data_Q2[QUEST_ID], int)
+        self.assertIn(USER_ID, json_data_Q2)
+        self.assertIsInstance(json_data_Q2[USER_ID], str)
+        for answer in json_data_Q2[ANSWERED_QUESTS]:
+            self.assertIn(ID, answer)
+            self.assertIsInstance(answer[ID], int)
+            self.assertIn(TYPE, answer)
+            self.assertIsInstance(answer[TYPE], str)
+            self.assertIn(ANSWER, answer)
+            self.assertIsInstance(answer[ANSWER], int)    
 
 # Test 3
 ## Looking for the correct retur
@@ -424,34 +425,3 @@ class Tests_Questionnair_Random_Text_Status(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(testRunner=unittest.TextTestRunner(verbosity=2, resultclass=ColorfulResult))
-
-
-
-#### for later | run tests in different classes #### too messy
-    ## Create a test suite with specific test classes
-    # suite = unittest.TestSuite()
-    # suite.addTest(unittest.makeSuite(TestSomeOtherFunctionality))
-
-    # # Run the test suite
-    # runner = unittest.TextTestRunner()
-    # runner.run(suite)
-
-
-# ### POST answer
-# #### Status code: 200
-# #### Body
-# ```
-# {
-#     "results": [
-#         {
-#             String: Double // PersonalityType : Double
-#         },
-#         {
-#             String: Double
-#         },
-#         {
-#             String: Double
-#         }
-#     ]
-# }
-# ```
