@@ -32,6 +32,8 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     testImplementation("io.ktor:ktor-server-tests-jvm")
+    testImplementation("io.ktor:ktor-client-core")
+    testImplementation("io.ktor:ktor-client-cio")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
 
