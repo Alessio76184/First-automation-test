@@ -28,6 +28,7 @@ class ExampleTest {
 
         assertTrue(questionnaire.questions.size == 40)
         assertTrue(questionnaire.questions.first().title == "I take pride in being seen as reliable and ready for any circumstance.")
+        assertEquals(43, questionnaire.questions.size)
     }
 
     @Test
