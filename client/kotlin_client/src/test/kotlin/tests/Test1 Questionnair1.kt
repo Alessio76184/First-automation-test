@@ -2,6 +2,7 @@ package tests
 
 import connectivity.ConnectionManager
 import io.ktor.client.*
+import models.Question
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -12,22 +13,21 @@ class `TestQuestionnair1` {
     private val client = HttpClient()
     private val connectionManager = ConnectionManager(client)
 
-    private fun countQuestionnaireIds(json: String): Int {
-        val jsonQuestions = jsonToMap(json)["questions"] as? List<Map<String, Any>> ?: return 0
-        return jsonQuestions.count { it["id"] != null }
+    private fun countQuestionnaireIds(questions: List<Question>): Int {
+        return  questions.count {it.id != null}
     }
 
     @Test
     fun testGetQuestionnaireIdCount() {
         val response = connectionManager.make_get_request(URL("${ConnectionManager.BASE_URL}/${ConnectionManager.SUFFIX_VALID_QUESTIONNAIRE}"))
-        val idCount = countQuestionnaireIds(response)
+        val questions = parseQuestions(response)
+        val idCount = countQuestionnaireIds(questions)
         assertEquals(40, idCount)
     }
 
-    private fun jsonToMap(json: String): Map<String, Any> {
-        return emptyMap()
+    private fun parseQuestions(json: String): List<Question> {
+        return listOf()
     }
-
 
 }
 
