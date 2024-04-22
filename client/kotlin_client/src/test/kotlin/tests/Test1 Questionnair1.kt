@@ -3,14 +3,17 @@ package tests
 import connectivity.ConnectionManager
 import io.ktor.client.*
 import models.Question
+import models.Questionnaire
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import util.DependencyProvider
 import java.net.URL
 
 class `TestQuestionnair1` {
 
-    private val client = HttpClient()
+    private val dependencyProvider = DependencyProvider()
+    private val client = dependencyProvider.getPreconfiguredClientWithLogging()
     private val connectionManager = ConnectionManager(client)
 
     private fun countQuestionnaireIds(questions: List<Question>): Int {
@@ -20,9 +23,14 @@ class `TestQuestionnair1` {
     @Test
     fun testGetQuestionnaireIdCount() {
         val response = connectionManager.make_get_request(URL("${ConnectionManager.BASE_URL}/${ConnectionManager.SUFFIX_VALID_QUESTIONNAIRE}"))
-        val questions = parseQuestions(response)
-        val idCount = countQuestionnaireIds(questions)
-        assertEquals(40, idCount)
+        //val questions = parseQuestions(response)
+        val questionnaire = dependencyProvider.getGson().fromJson(response, Questionnaire::class.java)
+
+        assertEquals(40, questionnaire.questions.first().id)
+        questionnaire.questions.forEach{ question -> question.id
+        }
+
+
     }
 
     private fun parseQuestions(json: String): List<Question> {
