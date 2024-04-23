@@ -5,8 +5,8 @@ import com.google.gson.JsonObject
 import connectivity.ConnectionManager
 import util.DependencyProvider
 import java.net.URL
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
+import kotlin.test.*
+
 
 class `TestQuestionnaireSubmitAnswer` {
 
@@ -19,20 +19,18 @@ class `TestQuestionnaireSubmitAnswer` {
         "questionnaireId": 50,
         "userId": "theman234",
         "answeredQuestions": [
-            {"id": 0, "type": "Unbreakable", "answer": 1}
+            {"id": 50, "type": "Unbreakable", "answer": 1}
         ]
     }
 """.trimIndent()
-
-    val URLQuestionnaireSubmitWrongQuestionID = connectionManager.make_post_request("${ConnectionManager.BASE_URL}/${ConnectionManager.SUFFIX_VALID_SUMBIT_ANSWER}", testEntryQuestion50)
-
+    val URLQuestionnaireSubmitWrongQuestionID = connectionManager.make_post_request(URL("${ConnectionManager.BASE_URL}/${ConnectionManager.SUFFIX_VALID_SUMBIT_ANSWER}"), testEntryQuestion50)
 
     @Test
     fun testPostSubmitWrongIDthenErrorCode105(){
         val retrieveError = Gson().fromJson(URLQuestionnaireSubmitWrongQuestionID, JsonObject::class.java)
         val errorCode = retrieveError.get("errorCode")?.asInt
         val errorMessage = retrieveError.get("developerMessage")?.asString
-        assertEquals(105, errorCode)
+        assertEquals (105, errorCode)
         assertNotNull(errorMessage)
     }
 
@@ -40,15 +38,7 @@ class `TestQuestionnaireSubmitAnswer` {
 }
 
 
-//
-//test_entry_question_50 = {
-//    "questionnaireId": 50,
-//    "userId": "theman234",
-//    "answeredQuestions": [
-//    {"id": 0, "type": "Unbreakable", "answer": 1},
-//    ]
-//}
-//
+
 //test_entry_type_change = {
 //    "questionnaireId": 1,
 //    "userId": "theman234",
@@ -65,7 +55,6 @@ class `TestQuestionnaireSubmitAnswer` {
 //    ]
 //}
 //
-//Test_URL_Questionnaire_Submit_Wrong_Questionnair_ID = make_post_call("questionnaire/submit/answer", test_entry_question_50)
 //Test_URL_Questionnaire_Submit_Wrong_Type = make_post_call("questionnaire/submit/answer", test_entry_type_change)
 //Test_URL_Questionnaire_Submit_Correct_Body = make_post_call("questionnaire/submit/answer", test_entry_expected)
 //

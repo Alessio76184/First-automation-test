@@ -1,8 +1,10 @@
 package connectivity
 
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import io.ktor.util.*
 import kotlinx.coroutines.runBlocking
 import java.net.URL
 
@@ -15,12 +17,13 @@ class ConnectionManager(private val client: HttpClient) {
         }
     }
 
-    fun make_post_request(url: URL, body: String) {
+    @OptIn(InternalAPI::class)
+    fun make_post_request(url: URL, body: String): String {
         return runBlocking {
-            val response = client.post<HttpResponse>(url){
-                body = body
+            val response = client.post(url) {
+                this.body = body
             }
-            response.recieve<String>()
+            response.bodyAsText()
         }
     }
 
