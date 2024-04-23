@@ -28,6 +28,7 @@ dependencies {
     implementation("io.ktor:ktor-client-logging")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.22")
     testImplementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 tasks.test {

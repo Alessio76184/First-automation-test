@@ -17,7 +17,10 @@ class ConnectionManager(private val client: HttpClient) {
 
     fun make_post_request(url: URL, body: String) {
         return runBlocking {
-
+            val response = client.post<HttpResponse>(url){
+                body = body
+            }
+            response.recieve<String>()
         }
     }
 
@@ -25,5 +28,6 @@ class ConnectionManager(private val client: HttpClient) {
         const val BASE_URL = "http://localhost:8080"
         const val SUFFIX_VALID_QUESTIONNAIRE = "questions/questionnaire1"
         const val SUFFIX_INVALID_QUESTIONNAIRE = "questions/questionnaire0"
+        const val SUFFIX_VALID_SUMBIT_ANSWER = "questionnaire/submit/answer"
     }
 }
