@@ -4,9 +4,11 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import io.ktor.http.*
 import io.ktor.util.*
 import kotlinx.coroutines.runBlocking
 import java.net.URL
+import javax.swing.text.AbstractDocument.Content
 
 class ConnectionManager(private val client: HttpClient) {
 
@@ -17,11 +19,11 @@ class ConnectionManager(private val client: HttpClient) {
         }
     }
 
-    @OptIn(InternalAPI::class)
     fun make_post_request(url: URL, body: String): String {
         return runBlocking {
             val response = client.post(url) {
-                this.body = body
+                setBody(body)
+                contentType(ContentType.Any)
             }
             response.bodyAsText()
         }

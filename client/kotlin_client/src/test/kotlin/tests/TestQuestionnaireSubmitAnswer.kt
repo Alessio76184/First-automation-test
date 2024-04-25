@@ -3,6 +3,12 @@ package tests
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import connectivity.ConnectionManager
+import io.ktor.client.call.*
+import io.ktor.client.statement.*
+import models.AnsweredQuestion
+import models.Answers
+import models.ErrorMessage
+import models.PersonalityType
 import util.DependencyProvider
 import java.net.URL
 import kotlin.test.*
@@ -14,24 +20,20 @@ class `TestQuestionnaireSubmitAnswer` {
     private val client = dependencyProvider.getPreconfiguredClientWithLogging()
     private val connectionManager = ConnectionManager(client)
 
-    val testEntryQuestion50 = """
-    {
-        "questionnaireId": 50,
-        "userId": "theman234",
-        "answeredQuestions": [
-            {"id": 50, "type": "Unbreakable", "answer": 1}
-        ]
-    }
-""".trimIndent()
-    val URLQuestionnaireSubmitWrongQuestionID = connectionManager.make_post_request(URL("${ConnectionManager.BASE_URL}/${ConnectionManager.SUFFIX_VALID_SUMBIT_ANSWER}"), testEntryQuestion50)
+    val testEntryQuestion50 = Answers(50,"UserId", listOf(AnsweredQuestion(0,PersonalityType.Unbreakable,5)))
+    val submitWrongAnswer105Response = connectionManager.make_post_request(URL("${ConnectionManager.BASE_URL}/${ConnectionManager.SUFFIX_VALID_SUMBIT_ANSWER}"), Gson().toJson(testEntryQuestion50))
 
     @Test
     fun testPostSubmitWrongIDthenErrorCode105(){
-        val retrieveError = Gson().fromJson(URLQuestionnaireSubmitWrongQuestionID, JsonObject::class.java)
-        val errorCode = retrieveError.get("errorCode")?.asInt
-        val errorMessage = retrieveError.get("developerMessage")?.asString
-        assertEquals (105, errorCode)
-        assertNotNull(errorMessage)
+
+        // Retriving the information from the post
+        val retrieveError = Gson().fromJson(submitWrongAnswer105Response, ErrorMessage::class.java)
+
+        // Checks that the error code is the correct number & checks if there is an error message and prints it as well
+        // The print is also for debugging purposes
+        assertTrue { retrieveError.errorCode == 105 }
+        assertNotNull(retrieveError.developerMessage)
+        println("${retrieveError.developerMessage}")
     }
 
 
