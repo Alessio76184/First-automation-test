@@ -23,11 +23,13 @@ class ConnectionManager(private val client: HttpClient) {
         return runBlocking {
             val response = client.post(url) {
                 setBody(body)
-                contentType(ContentType.Any)
+                contentType(ContentType.Application.Json)
             }
             response.bodyAsText()
         }
     }
+
+
 
     companion object {
         const val BASE_URL = "http://localhost:8080"
