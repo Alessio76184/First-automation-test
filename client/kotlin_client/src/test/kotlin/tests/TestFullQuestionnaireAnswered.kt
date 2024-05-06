@@ -5,10 +5,8 @@ import com.google.gson.JsonObject
 import connectivity.ConnectionManager
 import io.ktor.client.call.*
 import io.ktor.client.statement.*
-import models.AnsweredQuestion
-import models.Answers
-import models.ErrorMessage
-import models.PersonalityType
+import io.ktor.http.cio.*
+import models.*
 import util.DependencyProvider
 import java.net.URL
 import kotlin.test.*
@@ -63,11 +61,43 @@ class TestFullQuestionnaireAnswered {
         AnsweredQuestion(39, PersonalityType.Rejected, 5)
     ))
 
-    val SubmitValidFullQuestionnaire = connectionManager.make_post_request(URL("${ConnectionManager.BASE_URL}/${ConnectionManager.SUFFIX_VALID_SUMBIT_ANSWER}"), Gson().toJson(testFullQuestionnaireValid))
-
     @Test
-    fun testSubmitAnswer(){
+    fun testSubmitAnswer() {
+        // Make the POST request and get the response JSON
+        val SubmitValidFullQuestionnaire = connectionManager.make_post_request(
+            URL("${ConnectionManager.BASE_URL}/${ConnectionManager.SUFFIX_VALID_SUMBIT_ANSWER}"),
+            Gson().toJson(testFullQuestionnaireValid)
+        )
 
+        // Parse the response JSON into an object
+        val result = Gson().fromJson(SubmitValidFullQuestionnaire, JsonObject::class.java)
+
+        // Define the expected values
+        val expectedResults = mapOf(
+            "Unbreakable" to 0.41,
+            "Doer" to 0.29,
+            "Rejected" to 0.29
+        )
+
+        // Verify the structure and values
+        assertTrue {
+            // Check if the JSON object contains the "results" key
+            result.has("results") &&
+                    // Check if "results" is a JSON array
+                    result.get("results").isJsonArray &&
+                    // Check if the JSON array contains exactly three items
+                    result.getAsJsonArray("results").size() == 3 &&
+                    // Check if each item in the JSON array is a JSON object with a single key-value pair
+                    result.getAsJsonArray("results").all { item ->
+                        item.isJsonObject && item.asJsonObject.entrySet().size == 1 &&
+                                // Find the first key-value pair that meets certain conditions
+                                item.asJsonObject.entrySet().firstOrNull { entry ->
+                                    entry.key in expectedResults && entry.value.isJsonPrimitive &&
+                                            entry.value.asJsonPrimitive.isNumber &&
+                                            entry.value.asJsonPrimitive.asDouble == expectedResults[entry.key]
+                                } != null
+                    }
+        }
     }
 
 

@@ -1,5 +1,8 @@
 package models
 
-class Results {
+data class Results(
+    val results : List<TopThreeResults>
+)
 
-}
+
+
