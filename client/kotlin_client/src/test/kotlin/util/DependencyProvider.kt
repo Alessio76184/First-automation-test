@@ -27,4 +27,5 @@ class DependencyProvider {
     fun getGson(): Gson {
         return GsonBuilder().setPrettyPrinting().create()
     }
+
 }
